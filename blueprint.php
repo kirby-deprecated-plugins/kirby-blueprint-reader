@@ -52,23 +52,30 @@ class blueprint {
 		return $array;
 	}
 
-	// Return dirpath
-	public static function dirpath() {
+	// Get template from self with fallback to intendedtemplate
+	public static function template() {
 		if ( ! empty( self::$template ) ) {
 			$template = self::$template;
 		} else {
 			$template = page()->intendedTemplate();
 		}
-		$path = kirby()->roots()->blueprints() . DS . $template;
-		return $path;
+		return $template;
 	}
 
 	// Return filepath
 	public static function filepath() {
-		$dirpath = self::dirpath();
+		$filepath = '';
+		$template = self::template();
+		$dirpath = kirby()->roots()->blueprints() . DS . $template;
+		$fallback = kirby()->roots()->blueprints() . DS . 'default';
+
 		if( file_exists( $dirpath . '.yml') ) $filepath = $dirpath . '.yml';
 		elseif( file_exists( $dirpath . '.yaml' ) ) $filepath = $dirpath . '.yaml';
 		elseif( file_exists( $dirpath . '.php' ) ) $filepath = $dirpath . '.php';
+		elseif( file_exists( $fallback . '.yml' ) ) $filepath = $fallback . '.yml';
+		elseif( file_exists( $fallback . '.yaml' ) ) $filepath = $fallback . '.yaml';
+		elseif( file_exists( $fallback . '.php' ) ) $filepath = $fallback . '.php';
+
 		return $filepath;
 	}
 
@@ -82,11 +89,14 @@ class blueprint {
 	// Parse with global field definitions
 	public static function parse( $yaml ) {
 		$fields_dirpath = kirby()->roots()->blueprints() . DS . 'fields';
-		foreach( $yaml['fields'] as $key => $field ) {
-			$fields_filepath = $fields_dirpath . DS . $key . '.yml';
-			if( is_string( $field ) && file_exists( $fields_filepath ) ) {
-				$field = yaml::read( $fields_filepath );
-				$yaml['fields'][$key] = $field;
+		$yaml = ( ! empty( $yaml ) ) ? $yaml : array();
+		if( ! empty( $yaml['fields'] ) ) {
+			foreach( $yaml['fields'] as $key => $field ) {
+				$fields_filepath = $fields_dirpath . DS . $key . '.yml';
+				if( is_string( $field ) && file_exists( $fields_filepath ) ) {
+					$field = yaml::read( $fields_filepath );
+					$yaml['fields'][$key] = $field;
+				}
 			}
 		}
 		return $yaml;

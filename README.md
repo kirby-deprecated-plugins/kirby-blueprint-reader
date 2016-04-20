@@ -13,6 +13,10 @@ Blueprints are used in the panel. Sometimes it can be useful to have access to t
 1. Add `blueprint` folder into `/site/plugins/`.
 1. Use the plugin by the instructions below.
 
+## Changelog
+
+Read the [changelog](https://github.com/jenstornell/kirby-blueprint/blob/master/CHANGELOG.md) for updates.
+
 ## Usage
 
 ### Example blueprint

@@ -17,10 +17,10 @@ Blueprints are used in the panel. Sometimes it can be useful to have access to t
 
 ### Example blueprint
 
-I will use this example for the methods below. Let's say it's the `default` template.
+I will use the blueprint example below when explaining the blueprint methods.
 
 ```md
-title: Example
+title: Default
 fields:
   title:
     label: Title
@@ -45,7 +45,7 @@ echo blueprint::get( 'default' );
 **The output will be something like this:**
 
 ```md
-[title] => Home
+[title] => Default
 [fields] => Array
   (
     [title] => Array (

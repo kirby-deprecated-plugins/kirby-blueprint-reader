@@ -36,13 +36,13 @@ fields:
 Get the blueprint as array.
 
 ```php
-echo blueprint::get();
+print_r( blueprint::get() );
 ```
 
 Get the blueprint as array by template.
 
 ```php
-echo blueprint::get( 'default' );
+print_r( blueprint::get( 'default' ) );
 ```
 
 
@@ -65,13 +65,13 @@ echo blueprint::get( 'default' );
 Get a blueprint field as array.
 
 ```php
-echo blueprint::field( 'title' );
+print_r( blueprint::field( 'title' ) );
 ```
 
 Get a blueprint field as array by template.
 
 ```php
-echo blueprint::field( 'title', 'default' );
+print_r( blueprint::field( 'title', 'default' ) );
 ```
 
 **The output will be something like this:**

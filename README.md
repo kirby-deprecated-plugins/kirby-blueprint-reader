@@ -1,104 +1,230 @@
-# Kirby Blueprint
+# Kirby Blueprint Reader
 
-Blueprints are used in the panel. Sometimes it can be useful to have access to this data even from a snippet or a template. It's possible with this plugin.
+*Also shorted down as **BRead***.
 
-## Features
+*Version 0.2 - **[Changelog](docs/changelog.md)** *
 
-- Really simple syntax
-- Support global field definitions
-- Support for `yml`, `yaml` and `php` blueprint extensions
+**Features**
 
-## Install
+- [x] Cache (memory) for blueprint, global field definitions and filepaths.
+- [x] Support for global field definitions.
+- [x] Support for global field definitions by extending fields.
 
-1. Add `blueprint` folder into `/site/plugins/`.
-1. Use the plugin by the instructions below.
+**Todo**
 
-## Changelog
+- Support for global field definitions in structure fields.
+- Support for global field defintions by extending field in structure fields.
+- Support for languages in the blueprint.
 
-Read the [changelog](https://github.com/jenstornell/kirby-blueprint/blob/master/CHANGELOG.md) for updates.
+## Methods
 
-## Usage
+If `$template` is not sent to the method, it will try to use `$page->intendedTemplate()` instead.
 
-### Example blueprint
+| Method        | Description           
+| ------------- |-------------
+| `bread::blueprint($template = null)`       | Returns an array with blueprint data.
+| `bread::fields($template = null)`          | Returns an array with fields data.
+| `bread::field($key, $template = null)`     | Returns an array with field data.
+| `bread::file($template = null)`            | Returns the blueprint filepath.
+| `bread::read($filepath, $cachekey = null)` | Returns an array with blueprint data, by filepath.
+| `bread::parse($array)`                     | Returns an array with blueprint data, by an array.
 
-I will use the blueprint example below when explaining the blueprint methods.
+### `bread::blueprint($template = null)`
 
-```md
-title: Default
-fields:
-  title:
-    label: Title
-    type:  text
-```
+Get the complete blueprint as array.
 
-### blueprint::get()
+**Example 1**
 
-Get the blueprint as array.
-
-```php
-print_r( blueprint::get() );
-```
-
-Get the blueprint as array by template.
+If you don't send any arguments, it will try to use `$page->intendedTemplate()` as blueprint name.
 
 ```php
-print_r( blueprint::get( 'default' ) );
+print_r(bread::blueprint());
 ```
 
+**Example 2**
 
-**The output will be something like this:**
+In this case we want to get `projects`. The second one will get the data from a memory cache.
 
-```md
-[title] => Default
-[fields] => Array
-  (
-    [title] => Array (
-        [label] => Title
-        [type] => text
+```php
+print_r(bread::blueprint('projects'));
+print_r(bread::blueprint('projects'));
+```
+
+**Result**
+
+```text
+Array
+(
+  [title] => Projects
+  [fields] => Array
+    (
+      [title] => Array
+        (
+          [label] => Title
+          [type] => title
+        )
+      [text] => Array
+        (
+          [label] => Text
+          [type] => textarea
+        )
     )
-  )
 )
 ```
 
-### blueprint::field( $field )
+### `bread::fields($template = null)`
 
-Get a blueprint field as array.
+Get the fields as array.
 
-```php
-print_r( blueprint::field( 'title' ) );
-```
+**Example 1**
 
-Get a blueprint field as array by template.
+If you don't send any arguments, it will try to use `$page->intendedTemplate()` as blueprint name.
 
 ```php
-print_r( blueprint::field( 'title', 'default' ) );
+print_r(bread::fields());
 ```
 
-**The output will be something like this:**
+**Example 2**
 
-```md
-Array (
+In this case we want to get `projects`. The second one will get the data from a memory cache.
+
+```php
+print_r(bread::fields('projects'));
+print_r(bread::fields('projects'));
+```
+
+**Result**
+
+```text
+Array
+(
+  [title] => Array
+    (
+      [label] => Title
+      [type] => title
+    )
+  [text] => Array
+    (
+      [label] => Text
+      [type] => textarea
+    )
+)
+```
+
+### `bread::field($key, $template = null)`
+
+Get the field as array. A field key is required.
+
+**Example 1**
+
+If you don't send a `$template`, it will try to use `$page->intendedTemplate()` as blueprint name.
+
+```php
+print_r(bread::field('title'));
+```
+
+**Example 2**
+
+In this case we want to get `title`. The second one will get the data from a memory cache.
+
+```php
+print_r(bread::field('title', 'projects'));
+print_r(bread::field('title', 'projects'));
+```
+
+**Result**
+
+```text
+Array
+(
   [label] => Title
-  [type] => text
+  [type] => title
 )
 ```
 
-### blueprint::item( $field, $item )
+### `bread::file($template = null)`
 
-Get a blueprint item as array or string (depending on what it contains).
+Get the filepath.
 
-```php
-echo blueprint::item( 'title', 'label' );
-```
+**Example 1**
 
-Get a blueprint item as array or string by template.
+If you don't send a `$template`, it will try to use `$page->intendedTemplate()` as blueprint name.
 
 ```php
-echo blueprint::item( 'title', 'label', 'default' );
+print_r(bread::file());
 ```
 
-**The output will be something like this:**
+**Example 2**
 
-```md
-Title
+In this case we want to get `title`. The second one will get the data from a memory cache.
+
+```php
+print_r(bread::file('projects'));
+print_r(bread::file('projects'));
 ```
+
+**Result**
+
+```text
+C:\xampp\htdocs\kirby\2.4.1\site\blueprints\projects.yml
+```
+
+### `bread::parse($array)`
+
+You send a blueprint as an array. It will then parse it and include global field definitions and then send it back.
+
+**Example**
+
+If you have a global field definition that is named `date`, it will replace that string with a global field definition array.
+
+```php
+$array = array(
+  'fields' => array(
+    'title' => array(
+      'label' => 'Title',
+      'type' => 'title'
+    ),
+    'definition' => 'date',
+  )
+);
+print_r(bread::parse($array));
+```
+
+**Result**
+
+```text
+Array
+(
+  [fields] => Array
+    (
+      [title] => Array
+        (
+          [label] => Title
+          [type] => title
+        )
+      [date] => Array
+        (
+          [label] => Date
+          [type] => date
+        )
+    )
+)
+```
+
+## Requirements
+
+- [**Kirby**](https://getkirby.com/) 2.4.1+
+
+## Disclaimer
+
+This plugin is provided "as is" with no guarantee. Use it at your own risk and always test it yourself before using it in a production environment. If you find any issues, please [create a new issue](https://github.com/username/kirby-blueprint-reader/issues/new).
+
+## License
+
+[**MIT**](https://opensource.org/licenses/MIT)
+
+It is discouraged to use this plugin in any project that promotes racism, sexism, homophobia, animal abuse, violence or any other form of hate speech.
+
+## Credits
+
+- [Jens Törnell](https://github.com/jenstornell)

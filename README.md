@@ -2,7 +2,7 @@
 
 *Also shorted down as **BRead***.
 
-*Version 0.2 - **[Changelog](docs/changelog.md)** *
+*Version 0.2* - ***[Changelog](docs/changelog.md)***
 
 **Features**
 

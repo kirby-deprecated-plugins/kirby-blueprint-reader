@@ -12,46 +12,60 @@ class Definitions {
 	}
 
 	function definitions($array) {
-		if(isset($array['fields'])) {
-			foreach($array['fields'] as $key => $field ) {
+		if(array_key_exists('fields', $array)) {
+			foreach($array['fields'] as $key => $field) {
 				if(is_string($field)) {
-					$array = $this->setDefinition($field, $key, $array);
-				} elseif(!empty($field['extends'])) {
-					$array = $this->setExtends($field, $key, $array);
+					$array['fields'][$key] = $this->setDefinition($field, $key);
+				} elseif(is_array($field)) {
+					if(!empty($field['extends'])) {
+						$array['fields'][$key] = $this->setExtends($field, $key);
+					}
+					// Structure field
+					if(array_key_exists('fields', $field)) {
+						foreach($field['fields'] as $key2 => $item) {
+							if(is_string($item)) {
+								$array['fields'][$key]['fields'][$key2] = $this->setDefinition($item, $key2);
+							} elseif(is_array($item)) {
+								if(!empty($item['extends'])) {
+									$array['fields'][$key]['fields'][$key2] = $this->setExtends($item, $key2);
+								}
+							}
+						}
+					}
 				}
 			}
 		}
 		return $array;
 	}
 
-	function setExtends($field, $key, $array) {
+	function setExtends($part, $key) {
 		$Cache = new Cache();
-		$cachekey = $field['extends'] . '.definition';
-		$buffer = $array['fields'][$key];
+		$name = $part['extends'];
+		$cachekey = $name . '.definition';
+		$buffer = $part;
 		unset($buffer['extends']);
 
 		if(!empty($Cache->getItem($cachekey))) {
 			$data = $Cache->getItem($cachekey);
 		} else {
-			$data = $this->find($field['extends']);
+			$data = $this->find($name);
 			$Cache->set($cachekey, $data);
 		}
-		$array['fields'][$key] = array_merge($data, $buffer);
-		return $array;
+		$part = array_merge($data, $buffer);
+		return $part;
 	}
 
-	function setDefinition($field, $key, $array) {
+	function setDefinition($part, $key) {
 		$Cache = new Cache();
-		$cachekey = $field . '.definition';
+		$cachekey = $part . '.definition';
 
 		if(!empty($Cache->getItem($cachekey))) {
 			$data = $Cache->getItem($cachekey);
 		} else {
-			$data = $this->find($field);
+			$data = $this->find($part);
 			$Cache->set($cachekey, $data);
 		}
-		$array['fields'][$key] = $data;
-		return $array;
+		return $data;
 	}
 
 	function find($field) {

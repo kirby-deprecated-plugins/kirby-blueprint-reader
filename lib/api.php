@@ -1,12 +1,9 @@
 <?php
-namespace BlueprintReader;
-use f;
-
 class bread {
 	public static function blueprint($template = null) {		
-		$Cache = new Cache();
-		$Load = new Load();
-		$Read = new Read();
+		$Cache = new BlueprintReader\Cache();
+		$Load = new BlueprintReader\Load();
+		$Read = new BlueprintReader\Read();
 		$array = array();
 
 		if($Cache->getItem($template)) {
@@ -30,8 +27,8 @@ class bread {
 	}
 
 	public static function file($template = null) {
-		$Load = new Load();
-		$Cache = new Cache();
+		$Load = new BlueprintReader\Load();
+		$Cache = new BlueprintReader\Cache();
 		$string = '';
 		$cachekey = $template . '.filepath';
 
@@ -48,8 +45,8 @@ class bread {
 	}
 
 	public static function read($filepath = null, $cachekey = null) {
-		$Read = new Read();
-		$Cache = new Cache();
+		$Read = new BlueprintReader\Read();
+		$Cache = new BlueprintReader\Cache();
 		$array = array();
 
 		$cachekey = ($cachekey) ? $cachekey : $filepath;
@@ -65,16 +62,7 @@ class bread {
 	}
 
 	public static function parse($array = array()) {
-		$Parse = new Parse();
-		$array = array( // START TEST
-			'fields' => array(
-				'test' => array(
-					'label' => 'Label',
-					'type' => 'text'
-				),
-				'definition' => 'date',
-			)
-		); // END TEST
+		$Parse = new BlueprintReader\Parse();
 		return $Parse->all($array);
 	}
 }

@@ -2,19 +2,30 @@
 
 *Also shorted down as **BRead***.
 
-*Version 0.2* - ***[Changelog](docs/changelog.md)***
+*Version 0.3* - ***[Changelog](docs/changelog.md)***
 
-**Features**
+**Supports**
 
-- [x] Cache (memory) for blueprint, global field definitions and filepaths.
-- [x] Support for global field definitions.
-- [x] Support for global field definitions by extending fields.
+- [x] Global field definitions.
+- [x] Global field definitions in structure fields.
+- [x] Global field definitions extends.
+- [x] Global field definitions extends in structure fields.
+
+**Cache**
+
+The blueprint reader has a built in memory cache. It caches different types of data matched by a key.
+
+- [x] Blueprint data
+- [x] Blueprint filepaths
+- [x] Global field definitions
 
 **Todo**
 
-- Support for global field definitions in structure fields.
-- Support for global field defintions by extending field in structure fields.
 - Support for languages in the blueprint.
+
+## Kirby Blueprint Reader VS Kirby Architect
+
+To get a full comparation to the biggest competitor, read: [Kirby Blueprint Reader VS Kirby Architect](docs/compare.md).
 
 ## Methods
 

@@ -4,27 +4,27 @@ Because [Kirby Architect](https://github.com/AugustMiller/kirby-architect) is th
 
 | Feature                                                  | Blueprint Reader | Architect           
 | -------------------------------------------------------- | ---------------- | ---------
-| Support for php extension                                | No               | No
+| Support for php extension                                | -                | -
 | Support for yml extension                                | Yes              | Yes
-| Support for yaml extension                               | No               | Yes
-| Support for translations                                 | No               | Yes
-| Support for global field definitions                     | Yes              | No
-| Support for global field definitions in structure fields | Yes              | No
-| Support for global field extends                         | Yes              | No
-| Support for global field extends in structure fields     | Yes              | No
-| Support for Kirby CLI                                    | Yes              | No
+| Support for yaml extension                               | -                | Yes
+| Support for translations                                 | -                | Yes
+| Support for global field definitions                     | Yes              | -
+| Support for global field definitions in structure fields | Yes              | -
+| Support for global field extends                         | Yes              | -
+| Support for global field extends in structure fields     | Yes              | -
+| Support for Kirby CLI                                    | Yes              | -
 | Support for cache                                        | Yes              | Yes
-| Method to get the label                                  | No               | Yes
-| Method to get an option label                            | No               | Yes
-| Method to get options                                    | No               | Yes
-| Method to generate a menu                                | No               | Yes
-| Method to blacklist values                               | No               | Yes
+| Method to get the label                                  | -                | Yes
+| Method to get an option label                            | -                | Yes
+| Method to get options                                    | -                | Yes
+| Method to generate a menu                                | -                | Yes
+| Method to blacklist values                               | -                | Yes
 | Method to get the full blueprint                         | Yes              | Yes
-| Method to get the fields                                 | Yes              | No
-| Method to get a specific field                           | Yes              | No
-| Method to get the blueprint filepath by template         | Yes              | No
-| Method to get the blueprint data by a filepath           | Yes              | No
-| Method to parse a blueprint array                        | Yes              | No
+| Method to get the fields                                 | Yes              | -
+| Method to get a specific field                           | Yes              | -
+| Method to get the blueprint filepath by template         | Yes              | -
+| Method to get the blueprint data by a filepath           | Yes              | -
+| Method to parse a blueprint array                        | Yes              | -
 
 ## Summery
 

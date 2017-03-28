@@ -3,7 +3,7 @@
 Because [Kirby Architect](https://github.com/AugustMiller/kirby-architect) is the only competitor, I have made a comparation table for both plugins.
 
 | Feature                                                  | Blueprint Reader | Architect           
-| ---------------------------------------------------------|-----------------------------
+| -------------------------------------------------------- | ---------------- | ---------
 | Support for php extension                                | No               | No
 | Support for yml extension                                | Yes              | Yes
 | Support for yaml extension                               | No               | Yes

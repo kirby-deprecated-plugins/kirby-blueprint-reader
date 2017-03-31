@@ -3,7 +3,7 @@
 **0.4**
 
 - Support for translations.
-- Support for users blueprints with `user/blueprint`.
+- Support for users blueprints with `users/blueprint`.
 - Support for multiple caches separated by return type.
 - Support for array step like `fields/title/type`.
 - Support for global options.

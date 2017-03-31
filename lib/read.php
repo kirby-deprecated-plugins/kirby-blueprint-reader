@@ -6,19 +6,24 @@ class Read {
 	function __construct() {
 		global $kirby;
 		$this->kirby = $kirby;
-		$this->Parse = new Parse();
 		$this->Cache = new Cache();
+		$this->Language = new Language();
+		$this->Definitions = new Definitions();
 	}
 
-	function file($template, $filepath) {
-		$array = $this->set($filepath);
-		$this->Cache->set($template, $array);
+	function file($options) {
+		$array = $this->set($options);
 		return $array;
 	}
 
-	function set($filepath) {
-		$array = yaml::read($filepath);
-		$array = $this->Parse->all($array);
+	function set($options) {
+		$array = yaml::read($options['filepath']);
+		
+		$options['language'] = fallback($options, 'language', null);
+		$options['definitions'] = fallback($options, 'definitions', true);
+
+		$array = parse($array, $options);
+
 		return $array;
 	}
 }

@@ -1,5 +1,19 @@
 # Changelog
 
+**0.4**
+
+- Support for translations.
+- Support for users blueprints with `user/blueprint`.
+- Support for multiple caches separated by return type.
+- Support for array step like `fields/title/type`.
+- Support for global options.
+- Changed syntax from `bread::` to `b::`. 
+- Changed arguments. Steps added and options is now an array.
+- Changed `b::file()` to use filename as cache-key instead of path as default.
+- Changed the behavior of the `$name` argument, which does no longer fallback to `default.yml`.
+- Docs changed.
+- Bugfixes and code enhancements.
+
 **0.3**
 
 - Fixed major bug with singleton class.

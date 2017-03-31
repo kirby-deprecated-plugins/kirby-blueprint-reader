@@ -1,68 +1,57 @@
 <?php
-class bread {
-	public static function blueprint($template = null) {		
-		$Cache = new BlueprintReader\Cache();
-		$Load = new BlueprintReader\Load();
-		$Read = new BlueprintReader\Read();
-		$array = array();
+class b {
+	public static $array;
 
-		if($Cache->getItem($template)) {
-			$array = $Cache->getItem($template);
+	public static function blueprint($template, $steps_options = array(), $options = array()) {
+		$Blueprint = new BlueprintReader\MethodBlueprint();
+		$steps = array();
+
+		if(is_string($steps_options)) {
+			$steps = explode('/', $steps_options);
 		} else {
-			list($template, $filepath) = $Load->file($template);
-
-			if($filepath) {
-				$array = $Read->file($template, $filepath);
-			}
+			$options = $steps_options;
 		}
-		return $array;
+		
+		$options['template'] = $template;
+		$data = $Blueprint->get($options, $steps_options, $steps);
+		return $data;
 	}
 
-	public static function fields($template = null) {
-		return self::blueprint($template)['fields'];
-	}
+	public static function read($filepath, $steps_options = array(), $options = array()) {
+		$Read = new BlueprintReader\MethodRead();
+		$steps = array();
 
-	public static function field($key, $template = null) {
-		return self::fields($template)[$key];
-	}
-
-	public static function file($template = null) {
-		$Load = new BlueprintReader\Load();
-		$Cache = new BlueprintReader\Cache();
-		$string = '';
-		$cachekey = $template . '.filepath';
-
-		if($Cache->getItem($cachekey)) {
-			$string = $Cache->getItem($cachekey);
+		if(is_string($steps_options)) {
+			$steps = explode('/', $steps_options);
 		} else {
-			list($template, $filepath) = $Load->file($template);
-			if($filepath) {
-				$string = $filepath;
-				$Cache->set($cachekey, $string);
-			}
+			$options = $steps_options;
 		}
-		return $string;
+
+		$options['filepath'] = $filepath;
+		return $Read->get($options, $steps_options, $steps);
 	}
 
-	public static function read($filepath = null, $cachekey = null) {
-		$Read = new BlueprintReader\Read();
-		$Cache = new BlueprintReader\Cache();
-		$array = array();
+	public static function file($template, $options = array()) {
+		$options['format'] = 'filepath';
+		return self::blueprint($template, $options);
+	}
 
-		$cachekey = ($cachekey) ? $cachekey : $filepath;
+	public static function parse($data, $steps_options = array(), $options = array()) {
+		$steps = array();
 
-		if($Cache->getItem($cachekey)) {
-			$array = $Cache->getItem($cachekey);
+		if(is_string($steps_options)) {
+			$steps = explode('/', $steps_options);
 		} else {
-			if(f::exists($filepath)) {
-				$array = $Read->file($cachekey, $filepath);
-			}
+			$options = $steps_options;
 		}
-		return $array;
-	}
 
-	public static function parse($array = array()) {
-		$Parse = new BlueprintReader\Parse();
-		return $Parse->all($array);
+		$options = BlueprintReader\fallbackOptions($options);
+		$data = BlueprintReader\parse($data, $options);
+
+		if(is_string($steps_options) && $format != 'filepath') {
+			$data = steps($steps, $data);
+		}
+
+		return $data;
 	}
 }

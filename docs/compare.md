@@ -4,24 +4,15 @@ Because [Kirby Architect](https://github.com/AugustMiller/kirby-architect) is th
 
 | Feature                                                  | Blueprint Reader | Architect           
 | -------------------------------------------------------- | ---------------- | ---------
-| Support for php extension                                | -                | -
-| Support for yml extension                                | Yes              | Yes
-| Support for yaml extension                               | -                | Yes
-| Support for translations                                 | -                | Yes
 | Support for global field definitions                     | Yes              | -
-| Support for global field definitions in structure fields | Yes              | -
 | Support for global field extends                         | Yes              | -
-| Support for global field extends in structure fields     | Yes              | -
-| Support for Kirby CLI                                    | Yes              | -
-| Support for cache                                        | Yes              | Yes
+| Support for definitions and extends in structure fields  | Yes              | -
 | Method to get the label                                  | -                | Yes
 | Method to get an option label                            | -                | Yes
 | Method to get options                                    | -                | Yes
 | Method to generate a menu                                | -                | Yes
 | Method to blacklist values                               | -                | Yes
-| Method to get the full blueprint                         | Yes              | Yes
-| Method to get the fields                                 | Yes              | -
-| Method to get a specific field                           | Yes              | -
+| Method to step in the array                              | Yes              | -
 | Method to get the blueprint filepath by template         | Yes              | -
 | Method to get the blueprint data by a filepath           | Yes              | -
 | Method to parse a blueprint array                        | Yes              | -
@@ -30,17 +21,8 @@ Because [Kirby Architect](https://github.com/AugustMiller/kirby-architect) is th
 
 Which one you need depends on your needs. They are very different in what you can do and how things work and how the syntax looks like.
 
-If you need these things [Kirby Blueprint Reader]() might be better:
+**[Kirby Blueprint Reader](https://github.com/jenstornell/kirby-blueprint-reader)**
+It's probably better for reading and parsing as it supports global field definitions, extends, structure fields and array stepping.
 
-- Support for global field definitions and extends and support for them in structure fields.
-- Many methods like fields, field, file, read and parse.
-- Kirby CLI support
-
-If you need these things maybe [Kirby Architect](https://github.com/AugustMiller/kirby-architect) is better:
-
-- Translation support.
-- Yaml extension support.
-- Value blacklist.
-- Methods for menu generation, labels and options.
-
-Both supports caching and the `yml` extension.
+**[Kirby Architect](https://github.com/AugustMiller/kirby-architect)**
+It's probably better for help with generating html as it supports methods for menus, options and labels. 

@@ -7,6 +7,7 @@
 - Support for multiple caches separated by return type.
 - Support for array step like `fields/title/type`.
 - Support for global options.
+- Support for `.yaml` and `.php` extensions.
 - Changed syntax from `bread::` to `b::`. 
 - Changed arguments. Steps added and options is now an array.
 - Changed `b::file()` to use filename as cache-key instead of path as default.

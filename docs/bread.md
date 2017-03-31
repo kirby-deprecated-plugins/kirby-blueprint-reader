@@ -11,7 +11,7 @@ Get a blueprint data array by a blueprint filepath.
     *Name of the cache key. If no cache key name is set, it will use the filename.*
   - **$language** (string)
     *The language of the fields. If no language is set, it will show all languages.*
-  - **Definitions** (bool)
+  - **$definitions** (bool)
     *Turn global field definitions off by set it to false. It's set to true by default.*
 - **return** (array)
   *It will return an array with blueprint data if found, else it will return null.*

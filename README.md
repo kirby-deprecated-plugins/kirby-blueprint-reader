@@ -9,7 +9,7 @@ A very easy to use blueprint reader for Kirby CMS.
 - [x] Global field definitions
 - [x] Global field extends
 - [x] Translated fields
-- [x] Structure field
+- [x] Structure fields
 - [x] Simple array walking
 - [x] Caching
 
@@ -44,7 +44,7 @@ These are the methods you can use. Read more about them if you need more advance
 ## Table of contents
 
 - [Cache](docs/cache.md)
-- Options (soon)
+- [Options](options.md)
 - [Differences to Kirby Architect](docs/compare.md)
 
 ## Requirements

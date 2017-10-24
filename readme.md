@@ -44,7 +44,7 @@ These are the methods you can use. Read more about them if you need more advance
 ## Table of contents
 
 - [Cache](docs/cache.md)
-- [Options](options.md)
+- [Options](docs/options.md)
 - [Differences to Kirby Architect](docs/compare.md)
 
 ## Requirements
